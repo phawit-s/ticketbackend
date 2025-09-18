@@ -9,7 +9,7 @@ import {
 import {
   handleError,
   handleNotfound,
-  handleunauthorize,
+  handleUnauthorize,
 } from 'src/util/errorhandle';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -35,7 +35,7 @@ export class AuthService {
 
       const user = await comparePasswords(password, findemail.password);
       if (!user) {
-        return handleunauthorize(
+        return handleUnauthorize(
           'อีเมล์/รหัสผ่านไม่ถูกต้อง',
           'Email/Password is incorrect',
         );

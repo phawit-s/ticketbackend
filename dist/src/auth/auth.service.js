@@ -34,7 +34,7 @@ let AuthService = class AuthService {
             }
             const user = await (0, auth_1.comparePasswords)(password, findemail.password);
             if (!user) {
-                return (0, errorhandle_1.handleunauthorize)('อีเมล์/รหัสผ่านไม่ถูกต้อง', 'Email/Password is incorrect');
+                return (0, errorhandle_1.handleUnauthorize)('อีเมล์/รหัสผ่านไม่ถูกต้อง', 'Email/Password is incorrect');
             }
             const newdata = {
                 id: findemail.id,

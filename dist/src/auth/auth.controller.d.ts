@@ -4,7 +4,7 @@ import { RegisterDto } from './dto/register.dto';
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
-    login(loginDto: LoginDto): Promise<import("@nestjs/common").HttpException | {
+    login(loginDto: LoginDto): Promise<{
         statusCode: number;
         messageTh: string;
         messageEn: string;

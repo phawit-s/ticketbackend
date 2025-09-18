@@ -13,12 +13,27 @@ const app_service_1 = require("./app.service");
 const ticket_module_1 = require("./ticket/ticket.module");
 const auth_module_1 = require("./auth/auth.module");
 const model_1 = require("./model");
+const config_1 = require("@nestjs/config");
+const bullmq_1 = require("@nestjs/bullmq");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [ticket_module_1.TicketModule, auth_module_1.AuthModule, model_1.ModelModule],
+        imports: [
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+            }),
+            bullmq_1.BullModule.forRoot({
+                connection: {
+                    host: 'localhost',
+                    port: 6379,
+                },
+            }),
+            ticket_module_1.TicketModule,
+            auth_module_1.AuthModule,
+            model_1.ModelModule,
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

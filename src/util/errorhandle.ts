@@ -1,11 +1,11 @@
 import { HttpException, NotFoundException, HttpStatus } from '@nestjs/common';
 
 export function handleError(error: any): never {
-  let statusCode =
+  const statusCode =
     error?.response?.statusCode || HttpStatus.INTERNAL_SERVER_ERROR;
-  let messageTh =
+  const messageTh =
     error?.response?.messageTh || 'เกิดข้อผิดพลาด กรุณาติดต่อผู้ดูแลระบบ';
-  let messageEn = error?.response?.messageEn || 'Internal server error';
+  const messageEn = error?.response?.messageEn || 'Internal server error';
 
   throw new HttpException(
     {
@@ -18,32 +18,44 @@ export function handleError(error: any): never {
   );
 }
 
-export function handleNotfound(
-  messageTh: string,
-  messageEn: string,
-): HttpException {
+export function handleNotfound(messageTh?: string, messageEn?: string): never {
   throw new HttpException(
     {
-      statusCode: 400,
+      statusCode: HttpStatus.NOT_FOUND,
       messageTh: messageTh || 'ไม่พบข้อมูลที่ต้องการ',
       messageEn: messageEn || 'Data not found',
       data: null,
     },
-    400,
+    HttpStatus.NOT_FOUND,
   );
 }
 
-export function handleunauthorize(
-  messageTh: string,
-  messageEn: string,
-): HttpException {
+export function handleUnauthorize(
+  messageTh?: string,
+  messageEn?: string,
+): never {
   throw new HttpException(
     {
-      statusCode: 401,
-      messageTh: messageTh || 'ไม่พบข้อมูลที่ต้องการ',
-      messageEn: messageEn || 'Data not found',
+      statusCode: HttpStatus.UNAUTHORIZED,
+      messageTh: messageTh || 'ไม่ได้รับอนุญาต',
+      messageEn: messageEn || 'Unauthorized',
       data: null,
     },
-    401,
+    HttpStatus.UNAUTHORIZED,
+  );
+}
+
+export function handleValidationError(
+  messageTh?: string,
+  messageEn?: string,
+): never {
+  throw new HttpException(
+    {
+      statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+      messageTh: messageTh || 'ข้อมูลไม่ผ่านการตรวจสอบ',
+      messageEn: messageEn || 'Validation failed',
+      data: null,
+    },
+    HttpStatus.UNPROCESSABLE_ENTITY,
   );
 }
