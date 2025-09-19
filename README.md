@@ -28,10 +28,16 @@ bun db:migrate
 bun db:seed
 ```
 
-### 5. Start Development Server
+### 5. Build project
 
 ```sh
-bun dev
+bun run build
+```
+
+### 6. Start project
+
+```sh
+bun start
 ```
 
 ---
@@ -41,6 +47,7 @@ bun dev
 - Postgres: `localhost:5432`
 - Redis: `localhost:6379`
 - Bullui: `http://localhost:3333/queues/ui`
+- Swagger: `http://localhost:3333/api`
 
 **Environment variables:**  
 Configure your `.env` file as needed.
