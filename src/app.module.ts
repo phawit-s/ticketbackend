@@ -15,8 +15,8 @@ import { AdminModule } from './admin/admin.module';
     }),
     BullModule.forRoot({
       connection: {
-        host: 'localhost',
-        port: 6379,
+        host: process.env.REDIS_URL,
+        port: +(process.env.REDIS_PORT || 6379),
       },
     }),
     TicketModule,
@@ -27,4 +27,4 @@ import { AdminModule } from './admin/admin.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
