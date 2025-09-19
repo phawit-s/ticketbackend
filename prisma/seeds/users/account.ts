@@ -15,10 +15,10 @@ export async function seedAccounts() {
       role: 'ADMIN' as const,
     },
     {
-      email: 'student@example.com',
-      fname: 'Student',
+      email: 'user@example.com',
+      fname: 'user',
       lname: 'Test',
-      password: 'student123',
+      password: 'user123',
       role: 'USER' as const,
     },
   ];
@@ -36,5 +36,5 @@ export async function seedAccounts() {
     });
   }
 
-  console.warn('✅ Seeded 2 users:  admin, student');
+  console.warn('✅ Seeded 2 users:  admin, user');
 }
