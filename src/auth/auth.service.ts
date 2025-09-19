@@ -26,11 +26,7 @@ export class AuthService {
       });
 
       if (!findemail) {
-        return {
-          statusCode: 400,
-          messageTh: 'ไม่พบอีเมลในระบบ',
-          messageEn: 'No email found',
-        };
+        return handleNotfound('ไม่พบอีเมลในระบบ', 'Email not found');
       }
 
       const user = await comparePasswords(password, findemail.password);

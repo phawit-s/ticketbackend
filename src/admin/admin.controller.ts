@@ -10,7 +10,7 @@ export class AdminController {
     private readonly adminService: AdminService,
     @InjectQueue('notification-queue') private readonly notificationQ: Queue,
     @InjectQueue('sla-queue') private readonly slaQ: Queue,
-  ) {}
+  ) { }
 
   private pickQueueByName(name: string): Queue {
     switch (name) {
@@ -37,7 +37,7 @@ export class AdminController {
         delayed = 0,
       } = counts;
 
-      return { waiting, active, completed, failed, delayed };
+      return { data: { waiting, active, completed, failed, delayed } };
     } catch (err) {
       return handleError(err);
     }

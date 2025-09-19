@@ -16,7 +16,7 @@ export class TicketService {
 
     @InjectQueue('sla-queue')
     private slaQueue: Queue,
-  ) {}
+  ) { }
   async create(createTicketDto: CreateTicketDto) {
     try {
       const ticket = await this.prisma.ticket.create({ data: createTicketDto });
@@ -50,18 +50,70 @@ export class TicketService {
     }
   }
 
-  findAll() {
-    return this.prisma.ticket.findMany();
+  async findAll(params: {
+    status?: string;
+    priority?: string;
+    search?: string;
+    page?: number;
+    pageSize?: number;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+  }) {
+    const {
+      status,
+      priority,
+      search,
+      page = 1,
+      pageSize = 10,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+    } = params;
+
+    const where: any = {};
+
+    if (status) {
+      where.status = status;
+    }
+
+    if (priority) {
+      where.priority = priority;
+    }
+
+    if (search) {
+      where.OR = [
+        { title: { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } },
+      ];
+    }
+
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.ticket.findMany({
+        where,
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+        orderBy: { [sortBy]: sortOrder },
+      }),
+      this.prisma.ticket.count({ where }),
+    ]);
+
+    return {
+      data,
+      messageEN: 'Tickets retrieved successfully',
+      messageTH: 'ดึงข้อมูลตั๋วสำเร็จ',
+      total,
+      page,
+      pageSize,
+    };
   }
 
-  findOne(id: number) {
-    return this.prisma.ticket.findUnique({
+  async findOne(id: number) {
+    const data = await this.prisma.ticket.findUnique({
       where: { id },
     });
+    return { data };
   }
 
   async update(id: number, updateTicketDto: UpdateTicketDto) {
-    // อัปเดต DB ก่อน (กัน race กับ worker)
     const updated = await this.prisma.ticket.update({
       where: { id },
       data: updateTicketDto,
