@@ -1,8 +1,9 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import type { Queue } from 'bull';
 import { InjectQueue } from '@nestjs/bull';
 import { handleError, handleNotfound } from 'src/util/errorhandle';
+import { AuthGuard } from 'src/guard/auth.guard';
 
 @Controller('admin/queues')
 export class AdminController {
@@ -24,6 +25,7 @@ export class AdminController {
   }
 
   @Get(':name/stats')
+  @UseGuards(AuthGuard)
   async getStats(@Param('name') name: string) {
     try {
       const q = this.pickQueueByName(name);

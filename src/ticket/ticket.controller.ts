@@ -7,10 +7,12 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { TicketService } from './ticket.service';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
+import { AuthGuard } from 'src/guard/auth.guard';
 
 @Controller('ticket')
 export class TicketController {
@@ -22,6 +24,7 @@ export class TicketController {
   }
 
   @Get()
+  @UseGuards(AuthGuard)
   findAll(
     @Query('status') status?: string,
     @Query('priority') priority?: string,
@@ -43,16 +46,19 @@ export class TicketController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard)
   findOne(@Param('id') id: string) {
     return this.ticketService.findOne(+id);
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard)
   update(@Param('id') id: string, @Body() updateTicketDto: UpdateTicketDto) {
     return this.ticketService.update(+id, updateTicketDto);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   remove(@Param('id') id: string) {
     return this.ticketService.remove(+id);
   }
