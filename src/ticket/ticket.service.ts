@@ -133,9 +133,18 @@ export class TicketService {
     return updated;
   }
 
-  remove(id: number) {
-    return this.prisma.ticket.delete({
+  async remove(id: number) {
+    const deletedata = await this.prisma.ticket.delete({
       where: { id },
     });
+    const slaJobId = `sla:${id}`;
+
+    await this.slaQueue.removeJobs(slaJobId).catch(async () => {
+      const job = await this.slaQueue.getJob(slaJobId);
+      if (job) {
+        await job.remove();
+      }
+    });
+    return deletedata;
   }
 }
