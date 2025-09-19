@@ -42,7 +42,6 @@ export class TicketSLAConsumer {
 
   @OnQueueCompleted()
   async onGlobalCompleted(job: Job): Promise<void> {
-    console.log(job);
     Logger.debug(`on completed: job ${job.id} of type ${job.name}`);
   }
 

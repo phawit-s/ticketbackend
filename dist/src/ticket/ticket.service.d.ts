@@ -11,43 +11,43 @@ export declare class TicketService {
         message: string;
     }>;
     findAll(): import("@prisma/client").Prisma.PrismaPromise<{
-        id: number;
-        title: string;
-        description: string | null;
-        status: import("@prisma/client").$Enums.status;
-        priority: import("@prisma/client").$Enums.priority;
         createdAt: Date;
         updatedAt: Date;
+        id: number;
+        description: string | null;
+        title: string;
+        status: import("@prisma/client").$Enums.status;
+        priority: import("@prisma/client").$Enums.priority;
         accountId: number | null;
     }[]>;
     findOne(id: number): import("@prisma/client").Prisma.Prisma__TicketClient<{
-        id: number;
-        title: string;
-        description: string | null;
-        status: import("@prisma/client").$Enums.status;
-        priority: import("@prisma/client").$Enums.priority;
         createdAt: Date;
         updatedAt: Date;
+        id: number;
+        description: string | null;
+        title: string;
+        status: import("@prisma/client").$Enums.status;
+        priority: import("@prisma/client").$Enums.priority;
         accountId: number | null;
     } | null, null, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
     update(id: number, updateTicketDto: UpdateTicketDto): Promise<{
-        id: number;
-        title: string;
-        description: string | null;
-        status: import("@prisma/client").$Enums.status;
-        priority: import("@prisma/client").$Enums.priority;
         createdAt: Date;
         updatedAt: Date;
+        id: number;
+        description: string | null;
+        title: string;
+        status: import("@prisma/client").$Enums.status;
+        priority: import("@prisma/client").$Enums.priority;
         accountId: number | null;
     }>;
     remove(id: number): import("@prisma/client").Prisma.Prisma__TicketClient<{
-        id: number;
-        title: string;
-        description: string | null;
-        status: import("@prisma/client").$Enums.status;
-        priority: import("@prisma/client").$Enums.priority;
         createdAt: Date;
         updatedAt: Date;
+        id: number;
+        description: string | null;
+        title: string;
+        status: import("@prisma/client").$Enums.status;
+        priority: import("@prisma/client").$Enums.priority;
         accountId: number | null;
     }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
 }

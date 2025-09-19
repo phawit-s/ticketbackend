@@ -15,6 +15,7 @@ const auth_module_1 = require("./auth/auth.module");
 const model_1 = require("./model");
 const config_1 = require("@nestjs/config");
 const bullmq_1 = require("@nestjs/bullmq");
+const admin_module_1 = require("./admin/admin.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -33,6 +34,7 @@ exports.AppModule = AppModule = __decorate([
             ticket_module_1.TicketModule,
             auth_module_1.AuthModule,
             model_1.ModelModule,
+            admin_module_1.AdminModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

@@ -39,7 +39,6 @@ let TicketSLAConsumer = class TicketSLAConsumer {
         common_1.Logger.debug(`Processing job ${job.id} of type ${job.name}`);
     }
     async onGlobalCompleted(job) {
-        console.log(job);
         common_1.Logger.debug(`on completed: job ${job.id} of type ${job.name}`);
     }
     onQueueError(error) {

@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { ModelModule } from './model';
 import { ConfigModule } from '@nestjs/config';
 import { BullModule } from '@nestjs/bullmq';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { BullModule } from '@nestjs/bullmq';
     TicketModule,
     AuthModule,
     ModelModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],

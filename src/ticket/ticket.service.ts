@@ -31,7 +31,7 @@ export class TicketService {
           jobId: notifyJobId,
           attempts: 3,
           backoff: { type: 'fixed', delay: 1000 },
-          removeOnComplete: true,
+          removeOnComplete: false,
         },
       );
 
@@ -40,8 +40,8 @@ export class TicketService {
         { ticketId: ticket.id },
         {
           jobId: slaJobId,
-          delay: 1 * 60 * 1000,
-          removeOnComplete: true,
+          delay: 15 * 60 * 1000,
+          removeOnComplete: false,
         },
       );
       return { message: 'Ticket created successfully' };
