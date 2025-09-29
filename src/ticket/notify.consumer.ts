@@ -5,38 +5,44 @@ import {
   OnQueueFailed,
   Process,
   Processor,
-} from '@nestjs/bull';
-import { Logger } from '@nestjs/common';
-import { Job } from 'bullmq';
-import { PrismaService } from 'src/prisma/prisma.service';
+} from "@nestjs/bull"
+import { Logger } from "@nestjs/common"
+import { Job } from "bullmq"
+import { PrismaService } from "src/prisma/prisma.service"
 
-@Processor('notification-queue')
+@Processor("notification-queue")
 export class NotifyConsumer {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
-  @Process('notify')
+  @Process("notify")
   async notifysend(job: Job) {
-    Logger.log(`[Notify] ticketId=${job.data.ticketId} (jobId=${job.id})`);
-    return true;
+    Logger.log(`[Notify] ticketId=${job.data.ticketId} (jobId=${job.id})`)
+    return true
   }
 
   @OnQueueActive()
-  onActive(job: Job) {
-    Logger.debug(`[Notify] active jobId=${job.id} name=${job.name}`);
+  async onActive(job: Job) {
+    const { ticketId } = job.data
+    const showdata = await this.prisma.ticket.findUnique({
+      where: { id: ticketId },
+    })
+    console.log(showdata)
+
+    Logger.debug(`[Notify] active jobId=${job.id} name=${job.name}`)
   }
 
   @OnQueueCompleted()
   onCompleted(job: Job) {
-    Logger.debug(`[Notify] completed jobId=${job.id}`);
+    Logger.debug(`[Notify] completed jobId=${job.id}`)
   }
 
   @OnQueueFailed()
   onFailed(job: Job, err: Error) {
-    Logger.error(`[Notify] failed jobId=${job.id} err=${err?.message}`);
+    Logger.error(`[Notify] failed jobId=${job.id} err=${err?.message}`)
   }
 
   @OnQueueError()
   onQueueError(err: Error) {
-    Logger.error(`[Notify] queue error: ${err?.message}`);
+    Logger.error(`[Notify] queue error: ${err?.message}`)
   }
 }

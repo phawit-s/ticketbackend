@@ -41,7 +41,13 @@ export default tseslint.config(
       'prettier/prettier': [
         'error',
         {
-          singleQuote: true,
+          "semi": false,
+          "singleQuote": false,
+          "trailingComma": "all",
+          "printWidth": 100,
+          "tabWidth": 2,
+          "arrowParens": "avoid",
+          "endOfLine": "crlf",
         },
       ],
     },
